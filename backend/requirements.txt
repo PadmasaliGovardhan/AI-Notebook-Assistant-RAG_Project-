@@ -1,0 +1,15 @@
+langchain
+groq
+sentence-transformers
+python-multipart
+langchain-core
+langchain-community 
+pypdf
+pymupdf
+faiss-cpu
+chromadb
+uvicorn
+
+openai
+uvicorn
+fastapi

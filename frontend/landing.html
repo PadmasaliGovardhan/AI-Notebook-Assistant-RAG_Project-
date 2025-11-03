@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Notes Assistant | RAG Chatbot</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    body {
+      background: radial-gradient(circle at top, #0f172a, #000);
+      color: #e2e8f0;
+      font-family: "Poppins", sans-serif;
+    }
+    .flow-step {
+      background: #1e293b;
+      padding: 1.2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px #0ea5e9;
+    }
+    .connector {
+      height: 2px;
+      background: #38bdf8;
+      width: 60px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center min-h-screen">
+
+  <!-- 📸 Top Section -->
+  <header class="text-center mt-8">
+    <img src="assets/ai_notes_logo.png" alt="AI Notes Assistant Logo" class="mx-auto w-40 h-40 rounded-full shadow-lg border border-cyan-400">
+    <h1 class="text-4xl font-extrabold mt-4 text-cyan-300">AI Notes Assistant 🤖</h1>
+    <p class="text-lg text-gray-300 mt-2 max-w-2xl mx-auto">
+      Upload your notes, research papers, or textbooks and chat with them!  
+      Powered by <strong>Retrieval-Augmented Generation (RAG)</strong>, this AI acts like a world-class tutor — giving detailed, real-world explanations for your questions.
+    </p>
+  </header>
+
+  <!-- ⚙️ Workflow Section -->
+  <section class="mt-12 text-center">
+    <h2 class="text-3xl font-semibold text-cyan-300 mb-6">🔄 How It Works</h2>
+    <div class="flex flex-col items-center space-y-4">
+
+      <div class="flow-step">
+        <h3 class="font-bold text-xl text-cyan-400">📁 Step 1: Upload Notes</h3>
+        <p>Upload PDFs or documents (like textbooks, notes, or manuals).</p>
+      </div>
+      <div class="connector"></div>
+
+      <div class="flow-step">
+        <h3 class="font-bold text-xl text-cyan-400">🧩 Step 2: Chunking & Embedding</h3>
+        <p>The text is split into small chunks and converted into numerical embeddings using <b>Sentence Transformers</b>.</p>
+      </div>
+      <div class="connector"></div>
+
+      <div class="flow-step">
+        <h3 class="font-bold text-xl text-cyan-400">📚 Step 3: Vector Storage</h3>
+        <p>Chunks are stored in a <b>FAISS vector database</b> for efficient semantic search.</p>
+      </div>
+      <div class="connector"></div>
+
+      <div class="flow-step">
+        <h3 class="font-bold text-xl text-cyan-400">💬 Step 4: Ask Questions</h3>
+        <p>Ask natural language questions related to your uploaded material.</p>
+      </div>
+      <div class="connector"></div>
+
+      <div class="flow-step">
+        <h3 class="font-bold text-xl text-cyan-400">🧠 Step 5: RAG Model Response</h3>
+        <p>The system retrieves relevant chunks and uses the <b>Groq LLM (gpt-oss-20b)</b> to generate context-aware, step-by-step explanations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💡 Tech Stack -->
+  <section class="mt-16 max-w-4xl text-center">
+    <h2 class="text-3xl font-semibold text-cyan-300 mb-4">⚙️ Tech Stack</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-gray-200">
+      <div class="flow-step">🐍 Python (FastAPI)</div>
+      <div class="flow-step">🧠 Groq API (gpt-oss-20b)</div>
+      <div class="flow-step">📦 FAISS Vector Store</div>
+      <div class="flow-step">🎨 HTML / CSS / JS Frontend</div>
+    </div>
+  </section>
+
+  <!-- 🚀 CTA -->
+  <section class="mt-12 text-center">
+    <h2 class="text-2xl text-cyan-300 mb-4">🚀 Try the AI Notes Assistant</h2>
+   <a href="app.html" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-2 px-6 rounded-lg transition duration-300">
+  Open Application
+</a>
+
+
+
+  </section>
+
+  <!-- 📜 Footer -->
+  <footer class="mt-16 text-gray-400 text-sm mb-4">
+    <p>Developed by <a href="https://www.linkedin.com/in/govardhanpadmasali/" target="_blank" style="color: blue; text-decoration: underline; font-weight: bold;">Visit him</a> | B.Tech ECE | Embedded & AI Integration Project</p>
+
+
+    <p>© 2025 AI Notes Assistant | Powered by Groq + FAISS + FastAPI</p>
+  </footer>
+
+</body>
+</html>
+
