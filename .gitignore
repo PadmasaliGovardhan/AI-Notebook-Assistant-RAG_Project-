@@ -1,10 +1,52 @@
-# Python-generated files
+# Python
 __pycache__/
-*.py[oc]
-build/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
 dist/
-wheels/
-*.egg-info
+build/
 
-# Virtual environments
-.venv
+# Virtual environment
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Environment & config
+*.env
+.env*
+.envrc
+config.yaml
+settings.json
+secrets.json
+
+# Cache & logs
+*.log
+*.sqlite3
+.DS_Store
+.cache/
+*.lock
+*.bak
+*.swp
+
+# Node / React
+node_modules/
+dist/
+build/
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS
+Thumbs.db
+.idea/
+.vscode/
+.env
+.env.*
+
