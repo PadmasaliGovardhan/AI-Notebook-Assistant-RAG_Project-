@@ -1,4 +1,7 @@
 # backend/main.py
+from dotenv import load_dotenv
+load_dotenv()  # loads .env file
+
 from fastapi import FastAPI, UploadFile, Form, File
 from fastapi.middleware.cors import CORSMiddleware
 import fitz
