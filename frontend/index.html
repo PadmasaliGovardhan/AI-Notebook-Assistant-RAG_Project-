@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Notes Assistant | Your Personal AI Tutor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #e8e7e7;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .gold-gradient {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    }
+    .gold-accent { color: #D4AF37; }
+    .gold-glow {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+    }
+    .glass {
+      background: rgba(20, 20, 30, 0.4);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    .hero-text {
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(45deg, #ffffff, #D4AF37);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glitch 2s infinite;
+    }
+    @keyframes glitch {
+      0%, 90%, 100% { transform: translate(0); }
+      10% { transform: translate(-1px, -1px); }
+      20% { transform: translate(1px, 1px); }
+      30% { transform: translate(-2px, 0); }
+    }
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #D4AF37;
+      border-radius: 50%;
+      animation: float 6s infinite linear;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10px) scale(1); opacity: 0; }
+    }
+    .neural-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+      animation: neural 4s infinite;
+    }
+    @keyframes neural {
+      0% { width: 0; left: 0; }
+      50% { width: 100%; }
+      100% { width: 0; left: 100%; }
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto auto auto;
+      gap: 1.5rem;
+    }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-8 { grid-column: span 8; }
+    .typing {
+      border-right: 2px solid #D4AF37;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { border-color: transparent; }
+      51%, 100% { border-color: #D4AF37; }
+    }
+  </style>
+</head>
+<body class="gold-gradient relative">
+  <!-- Golden Particles & Neural Network -->
+  <div class="particles" id="particles"></div>
+  <div class="neural-line" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+  <div class="neural-line" style="top: 60%; left: 70%; animation-delay: 2s;"></div>
+  <div class="neural-line" style="top: 80%; left: 20%; animation-delay: 1s;"></div>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center relative px-4 pt-16">
+    <div class="text-center max-w-7xl mx-auto">
+      <h1 class="text-7xl md:text-9xl font-black hero-text mb-4">
+        AI Notes
+        <span class="block text-5xl md:text-7xl text-gold-accent">Assistant</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto typing" id="hero-subtitle">
+        Your genius-level AI tutor that masters your notes instantly...
+      </p>
+      <a href="app.html" class="inline-block bg-white text-black font-bold py-4 px-8 rounded-full text-lg gold-glow hover:scale-105 transition-all duration-300">
+        Launch Genius Mode
+      </a>
+    </div>
+  </section>
+
+  <!-- Bento Grid: How It Works -->
+  <section class="py-24 px-4 max-w-7xl mx-auto">
+    <h2 class="text-5xl font-black text-center mb-16 text-gold-accent">The Infinite Intelligence Pipeline</h2>
+    <div class="bento-grid">
+      <div class="span-4 glass p-6 rounded-2xl gold-glow hover:scale-[1.02] transition-all duration-500">
+        <div class="text-4xl mb-4">📄</div>
+        <h3 class="text-xl font-semibold mb-2">Upload</h3>
+        <p>Any notes, PDFs, textbooks</p>
+      </div>
+      <div class="span-4 glass p-6 rounded-2xl gold-glow hover:scale-[1.02] transition-all duration-500 row-span-2">
+        <div class="text-4xl mb-4">🧠</div>
+        <h3 class="text-xl font-semibold mb-2">Embed & Index</h3>
+        <p>Sentence Transformers + FAISS Vector DB<br>99.9% recall accuracy</p>
+      </div>
+      <div class="span-4 glass p-6 rounded-2xl gold-glow hover:scale-[1.02] transition-all duration-500">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="text-xl font-semibold mb-2">Query</h3>
+        <p>Ask anything, in any language</p>
+      </div>
+      <div class="span-8 glass p-8 rounded-2xl gold-glow hover:scale-[1.02] transition-all duration-500 row-span-2">
+        <h3 class="text-2xl font-bold mb-4 text-gold-accent">Powered by Groq's Fastest Model</h3>
+        <p class="text-lg">gpt-oss-20b delivers human-like reasoning at 500+ tokens/sec</p>
+      </div>
+      <div class="span-6 glass p-6 rounded-2xl gold-glow hover:scale-[1.02] transition-all duration-500">
+        <div class="text-4xl mb-4">🎯</div>
+        <h3 class="text-xl font-semibold mb-2">Retrieve</h3>
+        <p>Top-5 semantic matches</p>
+      </div>
+      <div class="span-6 glass p-6 rounded-2xl gold-glow hover:scale-[1.02] transition-all duration-500">
+        <div class="text-4xl mb-4">✨</div>
+        <h3 class="text-xl font-semibold mb-2">Generate</h3>
+        <p>Context-aware mastery</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 text-center">
+    <h2 class="text-5xl font-black mb-4 text-gold-accent">Become Unstoppable</h2>
+    <p class="text-xl text-gray-300 mb-8">Join to ace exams with Me</p>
+    <a href="app.html" class="inline-block bg-white text-black font-bold py-4 px-10 rounded-full text-xl gold-glow hover:scale-105 transition-all duration-300">
+      Now You are Ready to Start
+    </a>
+  </section>
+
+  <script>
+    // Typing Effect
+    const subtitle = "Your genius-level AI tutor that masters your notes instantly...";
+    let i = 0;
+    const type = () => {
+      document.getElementById('hero-subtitle').textContent = subtitle.slice(0, i);
+      i++;
+      if (i <= subtitle.length) setTimeout(type, 80);
+    };
+    setTimeout(type, 1000);
+
+    // Golden Particles
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particles.appendChild(particle);
+      }
+    }
+    createParticles();
+    setInterval(createParticles, 3000);
+  </script>
+<footer class="text-center py-8 text-gray-500 text-sm">
+  <p>© 2025 AI Notes Assistant | Built By 
+    <a href="https://www.linkedin.com/in/govardhanpadmasali/" target="_blank" style="color: #0ea5e9; text-decoration: underline; font-weight: bold;">This Guy</a>
+  </p>
+</footer>
+
+</body>
+</html>
