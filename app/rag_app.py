@@ -1,8 +1,8 @@
 # backend/rag_app.py
 import os
 from groq import Groq
-from embeddings import EmbeddingManager
-from store import VectorStore
+from .embeddings import EmbeddingManager
+from .store import VectorStore
 
 class RAGApp:
     def __init__(self):

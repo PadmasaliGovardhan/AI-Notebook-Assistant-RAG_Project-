@@ -8,7 +8,7 @@ import fitz
 import os
 
 # relative import from same package
-from rag_app import RAGApp
+from .rag_app import RAGApp
 
 app = FastAPI(title="Personal Assistant")
 # Initialize after dotenv load so keys are available
