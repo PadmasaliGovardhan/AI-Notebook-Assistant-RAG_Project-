@@ -1,15 +1,12 @@
-langchain
-groq
-sentence-transformers
-python-multipart
-langchain-core
-langchain-community 
-pypdf
-pymupdf
-faiss-cpu
-chromadb
-uvicorn
+fastapi==0.115.0
+uvicorn==0.30.1
+python-multipart==0.0.9
+python-dotenv==1.0.1
+fitz==0.0.1.dev2
+PyMuPDF==1.24.2
+sentence-transformers==2.2.2
+faiss-cpu==1.7.4
+chromadb==0.5.5
+groq==0.10.0
+numpy==1.26.4
 
-openai
-uvicorn
-fastapi
