@@ -11,7 +11,8 @@ RUN pip install --no-cache-dir -r /code/requirements.txt
 
 # Copy your app files
 COPY app /code/app
-COPY app.py /code/app.py
+COPY main_entry.py /code/app.py
+
 
 # Expose Hugging Face’s port
 EXPOSE 7860
