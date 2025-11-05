@@ -1,14 +1,17 @@
-# backend/main.py
+# app/main.py
 from dotenv import load_dotenv
-load_dotenv()  # loads .env file
+load_dotenv()  # load .env when running locally (safe: don't commit .env)
 
 from fastapi import FastAPI, UploadFile, Form, File
 from fastapi.middleware.cors import CORSMiddleware
 import fitz
 import os
+
+# relative import from same package
 from rag_app import RAGApp
 
 app = FastAPI(title="Personal Assistant")
+# Initialize after dotenv load so keys are available
 rag = RAGApp()
 
 app.add_middleware(
@@ -19,7 +22,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-UPLOAD_DIR = "../data/notes"
+# Keep data path inside repo (relative to project root while container runs /code)
+ROOT_DIR = os.path.abspath(os.getcwd())  # when container runs, CWD will be /code
+UPLOAD_DIR = os.path.join(ROOT_DIR, "data", "notes")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 def extract_text_from_pdf(pdf_path):
@@ -28,25 +33,24 @@ def extract_text_from_pdf(pdf_path):
         for page in doc:
             text += page.get_text()
     return text
-    
 
 @app.post("/upload_pdf/")
 async def upload_pdf(file: UploadFile = File(...)):
-    path = os.path.join(UPLOAD_DIR, file.filename)
+    # sanitize filename if needed
+    filename = os.path.basename(file.filename)
+    path = os.path.join(UPLOAD_DIR, filename)
     with open(path, "wb") as f:
         f.write(await file.read())
     text = extract_text_from_pdf(path)
     chunks = rag.add_notes(text)
-    return {"status": "success", "message": f"{file.filename} Uploaded Sucessfully...."}
-
+    return {"status": "success", "message": f"{chunks} chunks added from {filename}"}
 
 @app.post("/ask/")
 async def ask_question(query: str = Form(...)):
     answer = rag.ask(query)
     return {"question": query, "answer": answer}
-def main():
-    print("Hello from rag-demo!")
-
 
 if __name__ == "__main__":
-    main()
+    import uvicorn
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+
