@@ -6,10 +6,17 @@ from fastapi.middleware.cors import CORSMiddleware
 import fitz
 import os
 
-from .rag_app import RAGApp  # relative import
+# Use package-relative import
+from .rag_app import RAGApp
 
 app = FastAPI(title="Personal Assistant")
-rag = RAGApp()
+
+# Initialize RagApp at startup
+try:
+    rag = RAGApp()
+except Exception as e:
+    rag = None
+    print("Initialization error in RagApp:", e)
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,8 +26,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-ROOT_DIR = os.path.abspath(os.getcwd())
-UPLOAD_DIR = os.path.join(ROOT_DIR, "data", "notes")
+# Use a writable, ephemeral upload directory suitable for Spaces
+UPLOAD_DIR = "/tmp/notes"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 def extract_text_from_pdf(pdf_path):
@@ -34,17 +41,35 @@ def extract_text_from_pdf(pdf_path):
 async def upload_pdf(file: UploadFile = File(...)):
     filename = os.path.basename(file.filename)
     path = os.path.join(UPLOAD_DIR, filename)
+
     try:
+        # Write to a writable location
         with open(path, "wb") as f:
             f.write(await file.read())
+
+        # If RagApp failed to initialize, report clearly
+        if rag is None:
+            return {"status": "error", "detail": "Server initialization failed. RagApp not ready."}
+
+        # Extract text and process notes
         text = extract_text_from_pdf(path)
+        if not text.strip():
+            return {"status": "error", "detail": "Uploaded PDF contains no extractable text."}
+
         chunks = rag.add_notes(text)
         return {"status": "success", "message": f"{chunks} chunks added from {filename}"}
     except Exception as e:
-        return {"status": "error", "detail": str(e)}
+        import traceback
+        return {
+            "status": "error",
+            "detail": str(e),
+            "traceback": traceback.format_exc()
+        }
 
 @app.post("/ask/")
 async def ask_question(query: str = Form(...)):
+    if rag is None:
+        return {"status": "error", "detail": "Server initialization failed. RagApp not ready."}
     answer = rag.ask(query)
     return {"question": query, "answer": answer}
 
