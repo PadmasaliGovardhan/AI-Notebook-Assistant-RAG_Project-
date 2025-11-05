@@ -41,12 +41,10 @@ def extract_text_from_pdf(pdf_path):
 async def upload_pdf(file: UploadFile = File(...)):
     filename = os.path.basename(file.filename)
     path = os.path.join(UPLOAD_DIR, filename)
-
     try:
         with open(path, "wb") as f:
             f.write(await file.read())
 
-        # If RagApp didn't initialize, report clearly
         if rag is None:
             return {"status": "error", "detail": "Server initialization failed. RagApp not ready."}
 
