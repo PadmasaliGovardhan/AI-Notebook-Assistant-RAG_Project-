@@ -2,7 +2,7 @@
 title: AI NoteBook Assistant (RAG)
 emoji: 📘
 colorFrom: indigo
-colorTo: cyan
+colorTo: yellow
 sdk: docker
 app_file: backend/main.py
 pinned: false
