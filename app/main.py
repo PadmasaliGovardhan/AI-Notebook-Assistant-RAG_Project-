@@ -6,12 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import fitz
 import os
 
-# Use package-relative import
+# keep package-relative import if this is inside app/
 from .rag_app import RAGApp
 
 app = FastAPI(title="Personal Assistant")
 
-# Initialize RagApp at startup
+# Initialize RagApp safely
 try:
     rag = RAGApp()
 except Exception as e:
@@ -26,7 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Use a writable, ephemeral upload directory suitable for Spaces
+# Use a writable, ephemeral path suitable for Spaces
 UPLOAD_DIR = "/tmp/notes"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -43,15 +43,13 @@ async def upload_pdf(file: UploadFile = File(...)):
     path = os.path.join(UPLOAD_DIR, filename)
 
     try:
-        # Write to a writable location
         with open(path, "wb") as f:
             f.write(await file.read())
 
-        # If RagApp failed to initialize, report clearly
+        # If RagApp didn't initialize, report clearly
         if rag is None:
             return {"status": "error", "detail": "Server initialization failed. RagApp not ready."}
 
-        # Extract text and process notes
         text = extract_text_from_pdf(path)
         if not text.strip():
             return {"status": "error", "detail": "Uploaded PDF contains no extractable text."}
