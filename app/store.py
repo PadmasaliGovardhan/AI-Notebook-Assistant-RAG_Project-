@@ -10,6 +10,7 @@ class VectorStore:
 
     def add_documents(self, docs, embeddings):
         ids = [str(i) for i in range(len(docs))]
+        # embeddings is a numpy array; convert to list for Chroma
         self.collection.add(documents=docs, embeddings=embeddings.tolist(), ids=ids)
         print(f"🧠 Stored {len(docs)} chunks in vector DB.")
 
@@ -18,6 +19,6 @@ class VectorStore:
             query_embeddings=[query_embedding.tolist()],
             n_results=top_k
         )
-        docs = results.get("documents", [])[0]
+        docs = results.get("documents", [])[0]  # list of docs
         return docs
 
