@@ -1,5 +1,4 @@
-# backend/store.py
-import os
+# app/store.py
 import chromadb
 from chromadb.config import Settings
 
@@ -10,14 +9,16 @@ class VectorStore:
         print(f"✅ Vector store initialized at {path}")
 
     def add_documents(self, docs, embeddings):
-        """Store docs with embeddings"""
         ids = [str(i) for i in range(len(docs))]
+        # embeddings is a numpy array; convert to list for Chroma
         self.collection.add(documents=docs, embeddings=embeddings.tolist(), ids=ids)
         print(f"🧠 Stored {len(docs)} chunks in vector DB.")
 
     def retrieve_similar_docs(self, query_embedding, top_k=3):
-        """Retrieve top-k relevant chunks"""
-        results = self.collection.query(query_embeddings=[query_embedding.tolist()], n_results=top_k)
-        docs = results["documents"][0]
+        results = self.collection.query(
+            query_embeddings=[query_embedding.tolist()],
+            n_results=top_k
+        )
+        docs = results.get("documents", [])[0]  # list of docs
         return docs
 

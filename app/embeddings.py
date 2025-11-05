@@ -1,4 +1,4 @@
-# backend/embeddings.py
+# app/embeddings.py
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -9,5 +9,6 @@ class EmbeddingManager:
 
     def generate_embeddings(self, texts):
         """Generate embeddings for a list of text chunks"""
-        return np.array(self.model.encode(texts, show_progress_bar=True))
+        # Returns a numpy array of embeddings
+        return self.model.encode(texts, convert_to_numpy=True, show_progress_bar=True)
 
