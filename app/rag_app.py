@@ -1,23 +1,30 @@
+
 # app/rag_app.py
 import os
 from groq import Groq
+import httpx
 from .embeddings import EmbeddingManager
-import os
-from groq import Groq
-import httpx  # make sure to add httpx in requirements
+from .store import VectorStore
 
 class RAGApp:
     def __init__(self):
-        api_key = os.getenv("GROQ_API_KEY")
+        self.embedder = None
+        self.vectorstore = None
+        self.client = None
+        
+        try:
+            self.embedder = EmbeddingManager()
+            self.vectorstore = VectorStore()
+            api_key = os.getenv("GROQ_API_KEY")
+            custom_http_client = httpx.Client()
+            self.client = Groq(api_key=api_key, http_client=custom_http_client)
+        except Exception as e:
+            print("RAGApp init error:", e)
+            # Optionally, re-raise to crash on startup.
+            # raise RuntimeError(f"RAGApp init failed: {e}")
 
-        # Create a custom HTTPX client without proxies explicitly
-        custom_http_client = httpx.Client()
+    # ...rest unchanged...
 
-        self.client = Groq(
-            api_key=api_key,
-            http_client=custom_http_client,
-        )
-        # rest remains unchanged
 
 
     def add_notes(self, text):

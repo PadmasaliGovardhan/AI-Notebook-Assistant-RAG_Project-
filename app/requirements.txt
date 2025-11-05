@@ -8,6 +8,7 @@ huggingface-hub==0.16.4
 faiss-cpu==1.7.4
 chromadb==0.5.5
 groq==0.12.0
-httpx
+httpx==0.28.0  
+
 numpy==1.26.4
 
