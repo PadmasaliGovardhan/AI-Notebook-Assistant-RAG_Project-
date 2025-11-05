@@ -2,13 +2,23 @@
 import os
 from groq import Groq
 from .embeddings import EmbeddingManager
-from .store import VectorStore
+import os
+from groq import Groq
+import httpx  # make sure to add httpx in requirements
 
 class RAGApp:
     def __init__(self):
-        self.embedder = EmbeddingManager()
-        self.vectorstore = VectorStore()
-        self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        api_key = os.getenv("GROQ_API_KEY")
+
+        # Create a custom HTTPX client without proxies explicitly
+        custom_http_client = httpx.Client()
+
+        self.client = Groq(
+            api_key=api_key,
+            http_client=custom_http_client,
+        )
+        # rest remains unchanged
+
 
     def add_notes(self, text):
         chunks = [text[i:i+1000] for i in range(0, len(text), 800)]
