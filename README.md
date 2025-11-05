@@ -4,7 +4,7 @@ emoji: 📘
 colorFrom: indigo
 colorTo: yellow
 sdk: docker
-app_file: backend/main.py
+app_file: app/main.py
 pinned: false
 ---
 
