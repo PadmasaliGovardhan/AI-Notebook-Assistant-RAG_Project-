@@ -18,14 +18,10 @@ class RAGApp:
 
     def ask(self, query):
         try:
-            # 1️⃣ Generate embedding for query
             q_embed = self.embedder.generate_embeddings([query])[0]
-
-            # 2️⃣ Retrieve most relevant chunks from vector store
             docs = self.vectorstore.retrieve_similar_docs(q_embed, top_k=3)
             context = "\n\n".join(docs)
 
-            # 3️⃣ Prepare the system and user prompts
             messages = [
                 {
                     "role": "system",
@@ -33,8 +29,8 @@ class RAGApp:
                         "You are a world-class engineering tutor specializing in Electronics, Embedded Systems, and Programming. "
                         "Your teaching style dynamically adapts based on the student's question type.\n\n"
                         "### 🧩 Behavior Rules:\n"
-                        "1️⃣ If the question is conceptual, explain step-by-step with analogies and real-world relevance.\n"
-                        "2️⃣ If the question involves code, analyze, fix, and explain why the fix works.\n"
+                        "1️⃣ If conceptual, explain step-by-step with analogies and real-world relevance.\n"
+                        "2️⃣ If code, analyze, fix, and explain why the fix works.\n"
                         "3️⃣ If hardware-related, combine theory with hardware behavior and signals.\n"
                         "4️⃣ If theory from uploaded notes, summarize and add context from real-world applications.\n\n"
                         "### 🧠 Response Structure:\n"
@@ -58,7 +54,6 @@ class RAGApp:
                 },
             ]
 
-            # 4️⃣ Call Groq API
             completion = self.client.chat.completions.create(
                 model="openai/gpt-oss-20b",
                 messages=messages,
@@ -67,7 +62,6 @@ class RAGApp:
                 top_p=1
             )
 
-            # 5️⃣ Extract response
             for chunk in completion:
                 key, value = chunk
                 if key == 'choices':

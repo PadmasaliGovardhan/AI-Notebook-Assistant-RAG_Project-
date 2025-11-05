@@ -1,6 +1,6 @@
 # app/main.py
 from dotenv import load_dotenv
-load_dotenv()  # loads .env when running locally (safe: don't commit .env)
+load_dotenv()  # loads .env when running locally
 
 from fastapi import FastAPI, UploadFile, Form, File
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Keep data path inside repo (relative to project root while container runs /code)
+# Path setup for uploads
 ROOT_DIR = os.path.abspath(os.getcwd())  # /code inside container
 UPLOAD_DIR = os.path.join(ROOT_DIR, "data", "notes")
 os.makedirs(UPLOAD_DIR, exist_ok=True)

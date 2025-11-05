@@ -9,6 +9,5 @@ class EmbeddingManager:
 
     def generate_embeddings(self, texts):
         """Generate embeddings for a list of text chunks"""
-        # Returns a numpy array of embeddings
         return self.model.encode(texts, convert_to_numpy=True, show_progress_bar=True)
 
