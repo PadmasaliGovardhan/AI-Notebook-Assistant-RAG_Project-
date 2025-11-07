@@ -80,7 +80,7 @@ class RAGApp:
                 model="openai/gpt-oss-20b",
                 messages=messages,
                 temperature=0.3,
-                max_completion_tokens=800,
+                max_tokens=800,
                 top_p=1
             )
 
