@@ -1,4 +1,4 @@
-const backendURL = "http://127.0.0.1:8000"; // change if deployed
+const backendURL = "https://gvadxx-ai-notebook-assistant-rag.hf.space"; // change if deployed
 const uploadBtn = document.getElementById("uploadBtn");
 const sendBtn = document.getElementById("sendBtn");
 const pdfInput = document.getElementById("pdfInput");
