@@ -1,15 +1,14 @@
 from dotenv import load_dotenv
 load_dotenv()
-from fastapi.staticfiles import StaticFiles
+
 from fastapi import FastAPI, UploadFile, Form, File
 from fastapi.middleware.cors import CORSMiddleware
 import fitz
 import os
 
-
 # keep package-relative import if this is inside app/
 from .rag_app import RAGApp
-app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
+
 app = FastAPI(title="Personal Assistant")
 
 # Initialize RagApp safely
