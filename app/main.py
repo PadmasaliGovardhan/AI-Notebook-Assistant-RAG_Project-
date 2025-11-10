@@ -1,15 +1,18 @@
 from dotenv import load_dotenv
-load_dotenv()
 
+load_dotenv()
+from fastapi.responses import HTMLResponse
 from fastapi import FastAPI, UploadFile, Form, File
 from fastapi.middleware.cors import CORSMiddleware
 import fitz
 import os
 
+
 # keep package-relative import if this is inside app/
 from .rag_app import RAGApp
 
 app = FastAPI(title="Personal Assistant")
+
 
 # Initialize RagApp safely
 try:
@@ -35,7 +38,15 @@ def extract_text_from_pdf(pdf_path):
     with fitz.open(pdf_path) as doc:
         for page in doc:
             text += page.get_text()
-    return text
+    return text\
+    
+
+
+@app.get("/", response_class=HTMLResponse)
+def root():
+    return """
+    <a href="https://ai-notebook-rag.netlify.app/">Access from Here</a>
+    """
 
 @app.post("/upload_pdf/")
 async def upload_pdf(file: UploadFile = File(...)):
